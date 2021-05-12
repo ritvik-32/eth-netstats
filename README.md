@@ -1,4 +1,4 @@
-Ethereum Network Stats
+Matic Network Stats
 ============
 [![Build Status][travis-image]][travis-url] [![dependency status][dep-image]][dep-url]
 
@@ -15,9 +15,19 @@ Make sure you have node.js and npm installed.
 
 Clone the repository and install the dependencies
 
+- For bor dashboard
 ```bash
-git clone https://github.com/cubedro/eth-netstats
+git clone https://github.com/PrathyushaLakkireddy/eth-netstats.git
 cd eth-netstats
+git fetch && git checkout master
+npm install
+sudo npm install -g grunt-cli
+```
+- For heimdall dashboard
+```bash
+git clone https://github.com/PrathyushaLakkireddy/eth-netstats.git
+cd eth-netstats
+git fetch && git checkout prathyusha/heimdall_dashboard
 npm install
 sudo npm install -g grunt-cli
 ```
