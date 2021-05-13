@@ -295,7 +295,8 @@ function socketAction(action, data)
 						'stats.peers': data.stats.peers,
 						'stats.gasPrice': data.stats.gasPrice,
 						'stats.uptime': data.stats.uptime,
-						'stats.hBlockTime': data.stats.hBlockTime
+						'stats.hBlockTime': data.stats.hBlockTime,
+						'stats.hTxCount': data.stats.hTxCount
 					}});
 
 					if( !_.isUndefined(data.stats.latency) && _.get(foundNode, 'stats.latency', 0) !== data.stats.latency )

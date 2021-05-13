@@ -271,6 +271,7 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, socket, _, toastr)
 						$scope.nodes[index].stats.gasPrice = data.stats.gasPrice;
 						$scope.nodes[index].stats.uptime = data.stats.uptime;
 						$scope.nodes[index].stats.hBlockTime = data.stats.hBlockTime;
+						$scope.nodes[index].stats.hTxCount = data.stats.hTxCount;
 
 						if( !_.isUndefined(data.stats.latency) && _.get($scope.nodes[index], 'stats.latency', 0) !== data.stats.latency )
 						{

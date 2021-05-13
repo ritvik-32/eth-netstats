@@ -133,6 +133,15 @@ span.small-title span.small {
 	word-spacing: nowrap !important;
 }
 
+.big-info .medium-details {
+	display: block;
+	font-weight: 300;
+	font-size: 35px;
+	line-height: 55px;
+	letter-spacing: -4px;
+	word-spacing: nowrap !important;
+}
+
 .big-info .big-details .small-hash {
 	font-size: 87%;
 }
