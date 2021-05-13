@@ -36,7 +36,7 @@ block content
             i.icon-gas
           div.big-details-holder
             span.small-title avg block time
-            span.big-details {{ avgBlockTime | avgTimeFilter }}
+            span.big-details {{ bestStats.hBlockTime  | avgTimeFilter }}
           div.clearfix
       div.col-xs-2.stat-holder
         div.big-info.difficulty.text-orange

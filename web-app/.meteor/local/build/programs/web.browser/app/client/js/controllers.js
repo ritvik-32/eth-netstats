@@ -294,7 +294,8 @@ function socketAction(action, data)
 						'stats.hashrate': data.stats.hashrate,
 						'stats.peers': data.stats.peers,
 						'stats.gasPrice': data.stats.gasPrice,
-						'stats.uptime': data.stats.uptime
+						'stats.uptime': data.stats.uptime,
+						'stats.hBlockTime': data.stats.hBlockTime
 					}});
 
 					if( !_.isUndefined(data.stats.latency) && _.get(foundNode, 'stats.latency', 0) !== data.stats.latency )
