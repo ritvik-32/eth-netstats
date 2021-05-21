@@ -380,8 +380,8 @@ function socketAction(action, data)
 				meta.uncleCountChart = data.uncleCount;
 			}
 
-			if( !_.isEqual(meta.transactionDensity, data.transactions) && data.transactions.length >= MAX_BINS )
-				meta.transactionDensity = data.transactions;
+			// if( !_.isEqual(meta.transactionDensity, data.transactions) && data.transactions.length >= MAX_BINS )
+			// 	meta.transactionDensity = data.transactions;
 
 			if( !_.isEqual(meta.gasSpending, data.gasSpending) && data.gasSpending.length >= MAX_BINS )
 				meta.gasSpending = data.gasSpending;

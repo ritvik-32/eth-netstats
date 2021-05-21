@@ -353,8 +353,8 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, $localStorage, soc
 					$scope.uncleCountChart = data.uncleCount;
 				}
 
-				if( !_.isEqual($scope.transactionDensity, data.transactions) && data.transactions.length >= MAX_BINS )
-					$scope.transactionDensity = data.transactions;
+				// if( !_.isEqual($scope.transactionDensity, data.transactions) && data.transactions.length >= MAX_BINS )
+				// 	$scope.transactionDensity = data.transactions;
 
 				if( !_.isEqual($scope.gasSpending, data.gasSpending) && data.gasSpending.length >= MAX_BINS )
 					$scope.gasSpending = data.gasSpending;
