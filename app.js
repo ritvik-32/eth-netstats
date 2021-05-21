@@ -210,32 +210,32 @@ api.on('connection', function (spark)
 	});
 
 
-	spark.on('pending', function (data)
-	{
-		if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
-		{
-			Nodes.updatePending(data.id, data.stats, function (err, stats) {
-				if(err !== null)
-				{
-					console.error('API', 'TXS', 'Pending error:', err);
-				}
+	// spark.on('pending', function (data)
+	// {
+	// 	if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
+	// 	{
+	// 		// Nodes.updatePending(data.id, data.stats, function (err, stats) {
+	// 		// 	if(err !== null)
+	// 		// 	{
+	// 		// 		console.error('API', 'TXS', 'Pending error:', err);
+	// 		// 	}
 
-				if(stats !== null)
-				{
-					client.write({
-						action: 'pending',
-						data: stats
-					});
+	// 		// 	if(stats !== null)
+	// 		// 	{
+	// 		// 		client.write({
+	// 		// 			action: 'pending',
+	// 		// 			data: stats
+	// 		// 		});
 
-					console.success('API', 'TXS', 'Pending:', data.stats['pending'], 'from:', data.id);
-				}
-			});
-		}
-		else
-		{
-			console.error('API', 'TXS', 'Pending error:', data);
-		}
-	});
+	// 		// 		console.success('API', 'TXS', 'Pending:', data.stats['pending'], 'from:', data.id);
+	// 		// 	}
+	// 		// });
+	// 	}
+	// 	else
+	// 	{
+	// 		console.error('API', 'TXS', 'Pending error:', data);
+	// 	}
+	// });
 
 
 	spark.on('stats', function (data)
