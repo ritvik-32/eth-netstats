@@ -144,37 +144,37 @@ api.on('connection', function (spark)
 	});
 
 
-	spark.on('update', function (data)
-	{
-		if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
-		{
-			Nodes.update(data.id, data.stats, function (err, stats)
-			{
-				if(err !== null)
-				{
-					console.error('API', 'UPD', 'Update error:', err);
-				}
-				else
-				{
-					if(stats !== null)
-					{
-						client.write({
-							action: 'update',
-							data: stats
-						});
+	// spark.on('update', function (data)
+	// {
+	// 	if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
+	// 	{
+	// 		Nodes.update(data.id, data.stats, function (err, stats)
+	// 		{
+	// 			if(err !== null)
+	// 			{
+	// 				console.error('API', 'UPD', 'Update error:', err);
+	// 			}
+	// 			else
+	// 			{
+	// 				if(stats !== null)
+	// 				{
+	// 					client.write({
+	// 						action: 'update',
+	// 						data: stats
+	// 					});
 
-						console.info('API', 'UPD', 'Update from:', data.id, 'for:', stats);
+	// 					console.info('API', 'UPD', 'Update from:', data.id, 'for:', stats);
 
-						Nodes.getCharts();
-					}
-				}
-			});
-		}
-		else
-		{
-			console.error('API', 'UPD', 'Update error:', data);
-		}
-	});
+	// 					Nodes.getCharts();
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// 	else
+	// 	{
+	// 		console.error('API', 'UPD', 'Update error:', data);
+	// 	}
+	// });
 
 
 	spark.on('block', function (data)
@@ -270,30 +270,30 @@ api.on('connection', function (spark)
 	});
 
 
-	spark.on('history', function (data)
-	{
-		console.success('API', 'HIS', 'Got history from:', data.id);
+	// spark.on('history', function (data)
+	// {
+	// 	console.success('API', 'HIS', 'Got history from:', data.id);
 
-		var time = chalk.reset.cyan((new Date()).toJSON()) + " ";
-		console.time(time, 'COL', 'CHR', 'Got charts in');
+	// 	var time = chalk.reset.cyan((new Date()).toJSON()) + " ";
+	// 	console.time(time, 'COL', 'CHR', 'Got charts in');
 
-		Nodes.addHistory(data.id, data.history, function (err, history)
-		{
-			console.timeEnd(time, 'COL', 'CHR', 'Got charts in');
+	// 	Nodes.addHistory(data.id, data.history, function (err, history)
+	// 	{
+	// 		console.timeEnd(time, 'COL', 'CHR', 'Got charts in');
 
-			if(err !== null)
-			{
-				console.error('COL', 'CHR', 'History error:', err);
-			}
-			else
-			{
-				client.write({
-					action: 'charts',
-					data: history
-				});
-			}
-		});
-	});
+	// 		if(err !== null)
+	// 		{
+	// 			console.error('COL', 'CHR', 'History error:', err);
+	// 		}
+	// 		else
+	// 		{
+	// 			client.write({
+	// 				action: 'charts',
+	// 				data: history
+	// 			});
+	// 		}
+	// 	});
+	// });
 
 
 	spark.on('node-ping', function (data)
@@ -309,39 +309,39 @@ api.on('connection', function (spark)
 	});
 
 
-	spark.on('latency', function (data)
-	{
-		if( !_.isUndefined(data.id) )
-		{
-			Nodes.updateLatency(data.id, data.latency, function (err, latency)
-			{
-				if(err !== null)
-				{
-					console.error('API', 'PIN', 'Latency error:', err);
-				}
+	// spark.on('latency', function (data)
+	// {
+	// 	if( !_.isUndefined(data.id) )
+	// 	{
+	// 		Nodes.updateLatency(data.id, data.latency, function (err, latency)
+	// 		{
+	// 			if(err !== null)
+	// 			{
+	// 				console.error('API', 'PIN', 'Latency error:', err);
+	// 			}
 
-				if(latency !== null)
-				{
-					// client.write({
-					// 	action: 'latency',
-					// 	data: latency
-					// });
+	// 			if(latency !== null)
+	// 			{
+	// 				// client.write({
+	// 				// 	action: 'latency',
+	// 				// 	data: latency
+	// 				// });
 
-					console.info('API', 'PIN', 'Latency:', latency, 'from:', data.id);
-				}
-			});
+	// 				console.info('API', 'PIN', 'Latency:', latency, 'from:', data.id);
+	// 			}
+	// 		});
 
-			if( Nodes.requiresUpdate(data.id) )
-			{
-				var range = Nodes.getHistory().getHistoryRequestRange();
+	// 		if( Nodes.requiresUpdate(data.id) )
+	// 		{
+	// 			var range = Nodes.getHistory().getHistoryRequestRange();
 
-				spark.emit('history', range);
-				console.info('API', 'HIS', 'Asked:', data.id, 'for history:', range.min, '-', range.max);
+	// 			spark.emit('history', range);
+	// 			console.info('API', 'HIS', 'Asked:', data.id, 'for history:', range.min, '-', range.max);
 
-				Nodes.askedForHistory(true);
-			}
-		}
-	});
+	// 			Nodes.askedForHistory(true);
+	// 		}
+	// 	}
+	// });
 
 
 	spark.on('end', function (data)
