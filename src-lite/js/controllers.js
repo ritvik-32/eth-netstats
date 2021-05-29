@@ -176,6 +176,7 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, socket, _, toastr)
 			// TODO: Remove when everybody updates api client to 0.0.12
 			case "update":
 				var index = findIndex({id: data.id});
+				console.log("here..")
 
 				if( index >= 0 && !_.isUndefined($scope.nodes[index]) && !_.isUndefined($scope.nodes[index].stats) )
 				{
@@ -216,6 +217,7 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, socket, _, toastr)
 
 			case "block":
 				var index = findIndex({id: data.id});
+				console.log("blockkk")
 
 				if( index >= 0 && !_.isUndefined($scope.nodes[index]) && !_.isUndefined($scope.nodes[index].stats) )
 				{
@@ -437,6 +439,7 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, socket, _, toastr)
 	{
 		if( $scope.nodes.length )
 		{
+			console.log("Length..")
 			var chains = {};
 			var maxScore = 0;
 

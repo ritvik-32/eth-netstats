@@ -47,6 +47,7 @@ var client;
 var server;
 
 
+
 // Init API Socket connection
 api = new Primus(server, {
 	transformer: 'websockets',
@@ -144,38 +145,37 @@ api.on('connection', function (spark)
 	});
 
 
-	// spark.on('update', function (data)
-	// {
-	// 	if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
-	// 	{
-	// 		Nodes.update(data.id, data.stats, function (err, stats)
-	// 		{
-	// 			if(err !== null)
-	// 			{
-	// 				console.error('API', 'UPD', 'Update error:', err);
-	// 			}
-	// 			else
-	// 			{
-	// 				if(stats !== null)
-	// 				{
-	// 					client.write({
-	// 						action: 'update',
-	// 						data: stats
-	// 					});
+	spark.on('update', function (data)
+	{
+		if( !_.isUndefined(data.id) && !_.isUndefined(data.stats) )
+		{
+			Nodes.update(data.id, data.stats, function (err, stats)
+			{
+				if(err !== null)
+				{
+					console.error('API', 'UPD', 'Update error:', err);
+				}
+				else
+				{
+					if(stats !== null)
+					{
+						client.write({
+							action: 'update',
+							data: stats
+						});
 
-	// 					console.info('API', 'UPD', 'Update from:', data.id, 'for:', stats);
+						console.info('API', 'UPD', 'Update from:', data.id, 'for:', stats);
 
-	// 					Nodes.getCharts();
-	// 				}
-	// 			}
-	// 		});
-	// 	}
-	// 	else
-	// 	{
-	// 		console.error('API', 'UPD', 'Update error:', data);
-	// 	}
-	// });
-
+						Nodes.getCharts();
+					}
+				}
+			});
+		}
+		else
+		{
+			console.error('API', 'UPD', 'Update error:', data);
+		}
+	});
 
 	spark.on('block', function (data)
 	{
