@@ -14,7 +14,7 @@ function createTable(){
     pool.query("CREATE TABLE [IF NOT EXISTS] basicStats(active BOOLEAN NOT NULL, syncing BOOLEAN NOT NULL, mining BOOLEAN NOT NULL, hashrate NUMERIC NOT NULL, peers INT NOT NULL CHECK (peers >= 0), gasPrice BIGINT NOT NULL, uptime BIGINT NOT NULL CHECK (uptime >= 0))", 
         (err, res) => {
         console.log(err, res);
-        pool.end();
+        // pool.end();
     });
 }
 
@@ -22,7 +22,7 @@ function insertTable(stats){
     pool.query("INSERT INTO basicStats(active, syncing, mining, hashrate, peers, gasPrice, uptime) VALUES ($1, $2, $3, $4, $5, $6, $7)",Object.values(stats),
     (err, res) => {
         console.log(err, res);
-        pool.end();
+        // pool.end();
     });
 }
 
