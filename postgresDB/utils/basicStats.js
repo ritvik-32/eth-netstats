@@ -26,7 +26,9 @@ function insertTable(stats){
     });
 }
 
-module.exports={
-    createTable: createTable,
-    insertTable: insertTable
-};
+// module.exports={
+//     createTable: createTable,
+//     insertTable: insertTable
+// };
+
+module.exports=createTable;
