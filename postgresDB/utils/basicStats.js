@@ -31,4 +31,4 @@ function insertTable(stats){
 //     insertTable: insertTable
 // };
 
-module.exports=createTable;
+module.exports=createTable();
