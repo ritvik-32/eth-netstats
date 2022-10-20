@@ -18,8 +18,12 @@ function createTable(){
     });
 }
 
-function insertTable(){
-
+function insertTable(stats){
+    pool.query("INSERT INTO basicStats(active, syncing, mining, hashrate, peers, gasPrice, uptime) VALUES ($1, $2, $3, $4, $5, $6, $7)",Object.values(stats),
+    (err, res) => {
+        console.log(err, res);
+        pool.end();
+    });
 }
 
 module.exports={
