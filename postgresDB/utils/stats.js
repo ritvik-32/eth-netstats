@@ -31,7 +31,7 @@ function createTable(){
 }
 
 function insertTable(id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending){
-    pool.query("INSERT INTO stats(id,bestBlock, lastBlock, avgBlockTime, uptime, peers, pending) VALUES ($1, $2, $3, $4, $5, $6)",
+    pool.query("INSERT INTO stats(id, bestBlock, lastBlock, avgBlockTime, uptime, peers, pending) VALUES ($1, $2, $3, $4, $5, $6, $7)",
     [id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending],
     (err, res) => {
         console.log(err, res);
