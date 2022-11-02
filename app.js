@@ -2,6 +2,8 @@ var _ = require('lodash');
 var logger = require('./lib/utils/logger');
 var chalk = require('chalk');
 var http = require('http');
+const {createTable,insertTable} =require("../postgresDB/utils/stats");
+
 
 // Init WS SECRET
 var WS_SECRET;
@@ -101,6 +103,8 @@ Nodes.setChartsCallback(function (err, charts)
 api.on('connection', function (spark)
 {
 	console.info('API', 'CON', 'Open:', spark.address.ip);
+	createTable();
+
 
 	spark.on('hello', function (data)
 	{
@@ -195,7 +199,7 @@ api.on('connection', function (spark)
 							action: 'block',
 							data: stats
 						});
-
+						
 						console.success('API', 'BLK', 'Block:', data.block['number'], 'from:', data.id);
 
 						Nodes.getCharts();
@@ -257,7 +261,10 @@ api.on('connection', function (spark)
 							action: 'stats',
 							data: stats
 						});
-
+						console.error("STATS>>>>>>>>>>>>>>>>>>>>>>>>")
+						console.error(stats)
+						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
+						
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
 				}
