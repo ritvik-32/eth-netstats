@@ -81,6 +81,7 @@ external.plugin('emit', require('primus-emit'));
 
 // Init collections
 var Collection = require('./lib/collection');
+const { stat } = require('fs');
 var Nodes = new Collection(external);
 
 Nodes.setChartsCallback(function (err, charts)
@@ -327,6 +328,8 @@ api.on('connection', function (spark)
 						// }
 						  
 						insertNodeStats(data.id,stats.uptime,stats.peers)
+						console.log("UPTIME",stats.uptime)
+						console.log("PEERS",stats.peers)
 						process.exit()
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
