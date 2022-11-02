@@ -40,7 +40,7 @@ function createTable(){
 }
 
 function insertNodeStats(id,uptime,peers){
-    pool.query("INSERT INTO stats(id, uptime, peers) VALUES ($1, $2, $3)",
+    pool.query("INSERT INTO nodeStats(id, uptime, peers) VALUES ($1, $2, $3)",
     [id,uptime,peers],
     (err, res) => {
         console.log(err, res);
