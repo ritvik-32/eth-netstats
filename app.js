@@ -201,6 +201,7 @@ api.on('connection', function (spark)
 						});
 
 						console.log(stats)
+						process.exit()
 						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
 
 						
