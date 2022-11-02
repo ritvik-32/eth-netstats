@@ -199,6 +199,10 @@ api.on('connection', function (spark)
 							action: 'block',
 							data: stats
 						});
+
+						console.log(stats)
+						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
+
 						
 						console.success('API', 'BLK', 'Block:', data.block['number'], 'from:', data.id);
 
@@ -230,9 +234,7 @@ api.on('connection', function (spark)
 						action: 'pending',
 						data: stats
 					});
-					console.log(stats)
-					insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
-
+		
 					console.success('API', 'TXS', 'Pending:', data.stats['pending'], 'from:', data.id);
 				}
 			});
