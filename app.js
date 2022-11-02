@@ -327,6 +327,7 @@ api.on('connection', function (spark)
 						// }
 						  
 						insertNodeStats(data.id,stats.uptime,stats.peers)
+						process.exit()
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
 				}
