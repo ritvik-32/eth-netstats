@@ -328,7 +328,7 @@ api.on('connection', function (spark)
 						// }
 						  
 						insertNodeStats(data.id,stats.uptime,stats.peers)
-						console.log("UPTIME",stats.uptime)
+						console.log("UPTIME",stats["uptime"])
 						console.log("PEERS",stats.peers)
 						process.exit()
 						console.success('API', 'STA', 'Stats from:', data.id);
