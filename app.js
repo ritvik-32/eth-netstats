@@ -261,9 +261,8 @@ api.on('connection', function (spark)
 							action: 'stats',
 							data: stats
 						});
-						console.error("STATS>>>>>>>>>>>>>>>>>>>>>>>>")
-						// console.error(stats)
-						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
+						console.log(stats)
+						insertTable(data.id,stats["block"],stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
 						
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
