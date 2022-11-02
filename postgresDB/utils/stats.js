@@ -37,6 +37,16 @@ function createTable(){
         (err, res) => {
         console.log(err, res);
     });
+
+    pool.query("CREATE TABLE IF NOT EXISTS bestBlock(bestBlock BIGINT NOT NULL)", 
+        (err, res) => {
+        console.log(err, res);
+    });
+
+    pool.query("CREATE TABLE IF NOT EXISTS avgBlockTime(avgBlockTime BIGINT NOT NULL)", 
+        (err, res) => {
+        console.log(err, res);
+    });
 }
 
 function insertNodeStats(id,uptime,peers){
@@ -63,4 +73,20 @@ function insertPending(id,pending){
     });
 }
 
-module.exports={createTable,insertNodeStats,insertBlockNum,insertPending};
+function insertBestBlock(bestBlock){
+    pool.query("INSERT INTO bestBlock(bestBlock) VALUES ($1)",
+    [bestBlock],
+    (err, res) => {
+        console.log(err, res);
+    });
+}
+
+function insertAvgBlockTime(avgBlockTime){
+    pool.query("INSERT INTO avgBlockTime(avgBlockTime) VALUES ($1)",
+    [avgBlockTime],
+    (err, res) => {
+        console.log(err, res);
+    });
+}
+
+module.exports={createTable,insertNodeStats,insertBlockNum,insertPending,insertBestBlock,insertAvgBlockTime};
