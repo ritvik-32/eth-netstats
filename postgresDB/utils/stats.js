@@ -23,16 +23,16 @@ function createTable(){
     //   }
       
       
-    pool.query("CREATE TABLE IF NOT EXISTS stats(bestBlock BIGINT NOT NULL, lastBlock BIGINT NOT NULL, avgBlockTime NUMERIC NOT NULL, uptime SMALLINT NOT NULL, peers INT, pending BIGINT)", 
+    pool.query("CREATE TABLE IF NOT EXISTS stats(id TEXT NOT NULL,bestBlock BIGINT NOT NULL, lastBlock BIGINT NOT NULL, avgBlockTime NUMERIC NOT NULL, uptime SMALLINT NOT NULL, peers INT, pending BIGINT)", 
         (err, res) => {
         console.log(err, res);
         // pool.end();
     });
 }
 
-function insertTable(stats){
-    pool.query("INSERT INTO stats(bestBlock, lastBlock, avgBlockTime, uptime, peers, pending) VALUES ($1, $2, $3, $4, $5, $6)",
-    [stats.block.number,stats.block.number,stats.latency,stats.uptime,stats.peers,stats.pending],
+function insertTable(id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending){
+    pool.query("INSERT INTO stats(id,bestBlock, lastBlock, avgBlockTime, uptime, peers, pending) VALUES ($1, $2, $3, $4, $5, $6)",
+    [id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending],
     (err, res) => {
         console.log(err, res);
         // pool.end();
