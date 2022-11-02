@@ -2,7 +2,7 @@ var _ = require('lodash');
 var logger = require('./lib/utils/logger');
 var chalk = require('chalk');
 var http = require('http');
-const {createTable,insertTable} =require("./postgresDB/utils/stats");
+const {createTable,insertNodeStats,insertBlockNum,insertPending} =require("./postgresDB/utils/stats");
 
 
 // Init WS SECRET
@@ -200,9 +200,52 @@ api.on('connection', function (spark)
 							data: stats
 						});
 
-						console.log(stats)
-						process.exit()
-						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
+						// {
+						// 	id: 'coinbase-mumbai-full-0.3.0',
+						// 	block: {
+						// 	  number: 28920959,
+						// 	  hash: '0x59c8824c0d528b61d7e05ec5c7cc61ef612672ff7cdde124fd4f59e76a6736f9',
+						// 	  parentHash: '0x558e4c248f314c0b37ade8c454e18271ea818bc6144229ba01d46bddec6855f8',
+						// 	  timestamp: 1667290214,
+						// 	  miner: '0xbe188d6641e8b680743a4815dfa0f6208038960f',
+						// 	  gasUsed: 6940324,
+						// 	  gasLimit: 20000000,
+						// 	  difficulty: '4',
+						// 	  totalDifficulty: '193533249',
+						// 	  transactions: [
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object], [Object], [Object],
+						// 		[Object]
+						// 	  ],
+						// 	  transactionsRoot: '0x69c0018eb50ecfc7b43cfdbe460d17e27b2d6642db265d73547b1efbcddd561b',
+						// 	  stateRoot: '0x68da161f8279e039465b019b89d6e02a2d5ce7187678e6066dd0afbb6280fcf7',
+						// 	  uncles: [],
+						// 	  trusted: false,
+						// 	  arrived: 1667374578059,
+						// 	  received: 1667374578059,
+						// 	  propagation: 0,
+						// 	  fork: 0,
+						// 	  time: 0
+						// 	},
+						// 	propagationAvg: 0,
+						// 	history: [
+						// 	  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						// 	  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						// 	  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						// 	  -1, -1, -1, -1, -1, -1, -1, -1, -1,  0
+						// 	]
+						//   }
+						  
+						insertBlockNum(data.id,stats.block.number)
 
 						
 						console.success('API', 'BLK', 'Block:', data.block['number'], 'from:', data.id);
@@ -236,6 +279,7 @@ api.on('connection', function (spark)
 						data: stats
 					});
 		
+					insertPending(data.id,stats.pending)
 					console.success('API', 'TXS', 'Pending:', data.stats['pending'], 'from:', data.id);
 				}
 			});
@@ -282,8 +326,7 @@ api.on('connection', function (spark)
 						// 	}
 						// }
 						  
-						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
-						
+						insertNodeStats(data.id,stats.uptime,stats.peers)
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
 				}

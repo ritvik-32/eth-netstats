@@ -23,23 +23,44 @@ function createTable(){
     //   }
       
       
-    pool.query("CREATE TABLE IF NOT EXISTS stats(id TEXT NOT NULL,bestBlock BIGINT NOT NULL, lastBlock BIGINT NOT NULL, avgBlockTime NUMERIC NOT NULL, uptime SMALLINT NOT NULL, peers INT, pending BIGINT)", 
+    pool.query("CREATE TABLE IF NOT EXISTS nodeStats(id TEXT NOT NULL,uptime SMALLINT NOT NULL, peers INT)", 
         (err, res) => {
         console.log(err, res);
-        // pool.end();
+    });
+
+    pool.query("CREATE TABLE IF NOT EXISTS blockNum(id TEXT NOT NULL,lastBlock BIGINT NOT NULL)", 
+        (err, res) => {
+        console.log(err, res);
+    });
+
+    pool.query("CREATE TABLE IF NOT EXISTS pending(id TEXT NOT NULL, pending BIGINT)", 
+        (err, res) => {
+        console.log(err, res);
     });
 }
 
-function insertTable(id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending){
-    pool.query("INSERT INTO stats(id, bestBlock, lastBlock, avgBlockTime, uptime, peers, pending) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-    [id,bestBlock,lastBlock,avgBlockTime,uptime,peers,pending],
+function insertNodeStats(id,uptime,peers){
+    pool.query("INSERT INTO stats(id, uptime, peers) VALUES ($1, $2, $3)",
+    [id,uptime,peers],
     (err, res) => {
         console.log(err, res);
-        // pool.end();
     });
 }
 
-module.exports={
-    createTable: createTable,
-    insertTable: insertTable
-};
+function insertBlockNum(id,lastblock){
+    pool.query("INSERT INTO blockNum(id, lastblock) VALUES ($1, $2)",
+    [id,lastblock],
+    (err, res) => {
+        console.log(err, res);
+    });
+}
+
+function insertPending(id,pending){
+    pool.query("INSERT INTO pending(id, pending) VALUES ($1, $2)",
+    [id,pending],
+    (err, res) => {
+        console.log(err, res);
+    });
+}
+
+module.exports={createTable,insertNodeStats,insertBlockNum,insertPending};
