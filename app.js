@@ -230,6 +230,8 @@ api.on('connection', function (spark)
 						action: 'pending',
 						data: stats
 					});
+					console.log(stats)
+					insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
 
 					console.success('API', 'TXS', 'Pending:', data.stats['pending'], 'from:', data.id);
 				}
@@ -261,8 +263,23 @@ api.on('connection', function (spark)
 							action: 'stats',
 							data: stats
 						});
-						console.log(stats)
-						insertTable(data.id,stats["block"],stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
+						// {
+						// 	id: 'Witval',
+						// 	stats: {
+						// 	  active: true,
+						// 	  mining: true,
+						// 	  syncing: true,
+						// 	  hashrate: 0,
+						// 	  peers: 196,
+						// 	  gasPrice: 1261546606,
+						// 	  uptime: 100,
+						// 	  latency: '69',
+						// 	  hBlockTime: undefined,
+						// 	  hTxCount: undefined
+						// 	}
+						// }
+						  
+						insertTable(data.id,stats.block,stats.block,stats.hBlockTime,stats.uptime,stats.peers,stats.pending)
 						
 						console.success('API', 'STA', 'Stats from:', data.id);
 					}
