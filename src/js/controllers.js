@@ -572,8 +572,6 @@ netStatsApp.controller('StatsCtrl', function($scope, $filter, $localStorage, soc
 				$scope.lastBlock = $scope.bestStats.block.arrived;
 				$scope.lastDifficulty = $scope.bestStats.block.difficulty;
 
-				console.log("BEST STATS>>>>>>>>>>>>>>>>>>")
-				console.log(bestStats)
 				process.exit()
 			}
 		}

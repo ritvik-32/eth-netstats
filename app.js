@@ -143,6 +143,9 @@ api.on('connection', function (spark)
 						action: 'add',
 						data: info
 					});
+					console.log("INFO>>>>>>>>>>>>>>")
+					console.log(data)
+					process.exit()
 				}
 			});
 		}
