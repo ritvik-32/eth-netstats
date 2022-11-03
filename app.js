@@ -2,7 +2,7 @@ var _ = require('lodash');
 var logger = require('./lib/utils/logger');
 var chalk = require('chalk');
 var http = require('http');
-const {createTable,insertNodeStats,insertBlockNum,insertPending} =require("./postgresDB/utils/stats");
+const {createTable,insertNodeStats,insertBlockNum,insertPending,insertNodeInfo} =require("./postgresDB/utils/stats");
 
 
 // Init WS SECRET
@@ -143,9 +143,7 @@ api.on('connection', function (spark)
 						action: 'add',
 						data: info
 					});
-					console.log("INFO>>>>>>>>>>>>>>")
-					console.log(data)
-					process.exit()
+					insertNodeInfo(data.id,data.info.node)
 				}
 			});
 		}

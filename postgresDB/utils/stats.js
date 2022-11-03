@@ -47,6 +47,11 @@ function createTable(){
         (err, res) => {
         console.log(err, res);
     });
+
+    pool.query("CREATE TABLE IF NOT EXISTS nodeInfo(id TEXT NOT NULL, version TEXT NOT NULL)", 
+        (err, res) => {
+        console.log(err, res);
+    });
 }
 
 function insertNodeStats(id,uptime,peers){
@@ -89,4 +94,12 @@ function insertAvgBlockTime(avgBlockTime){
     });
 }
 
-module.exports={createTable,insertNodeStats,insertBlockNum,insertPending,insertBestBlock,insertAvgBlockTime};
+function insertNodeInfo(id,version){
+    pool.query("INSERT INTO nodeInfo(id, version) VALUES ($1, $2)",
+    [id,version],
+    (err, res) => {
+        console.log(err, res);
+    });
+}
+
+module.exports={createTable,insertNodeStats,insertBlockNum,insertPending,insertBestBlock,insertAvgBlockTime,insertNodeInfo};
