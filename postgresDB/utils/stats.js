@@ -49,17 +49,11 @@ function getLatestFromId(id){
             if (err){
                 console.log(err);
                 return err
-            } else if(res.rowCount>0){
-                console.log("RES=>>>>>\n");
-                console.log(res.rows);
-                process.exit(99);
-                return res.rows
-            } else{
-                console.log("No matching entry with id=",id);
+            } else {
+                return res.rows[0];
             }
         }
     )
-    return null;
 }
 
 function insertNodeStats(id,uptime,peers){
