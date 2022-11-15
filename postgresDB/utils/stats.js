@@ -72,7 +72,7 @@ function insertNodeStats(id,uptime,peers){
 }
 
 function insertBlockNum(id,lastblock){
-    pool.query("INSERT INTO latestNodeStats(id, lastblock) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET lastblock=EXCLUDED.lastblock",
+    pool.query("INSERT INTO latestNodeStats(id, lastblock, bestBlock, avgBlockTime) VALUES ($1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET lastblock=EXCLUDED.lastblock,bestBlock=EXCLUDED.bestBlock,avgBlockTime=EXCLUDED.avgBlockTime",
     // pool.query("INSERT INTO nodeStats(id, lastblock, bestBlock, avgBlockTime) VALUES ($1, $2, $3, $4)",
     [id,lastblock,currBestBlock,currAvgBlockTime],
     (err, res) => {
