@@ -43,19 +43,6 @@ function createTable(){
     });
 }
 
-function getLatestFromId(id){
-    pool.query("SELECT * FROM latestNodeStats WHERE id=$1",[id],
-        (err,res)=>{
-            if (err){
-                console.log(err);
-                return err
-            } else {
-                return res.rows[0];
-            }
-        }
-    )
-}
-
 function insertNodeStats(id,uptime,peers){
     // latestData=getLatestFromId(id)
     pool.query("INSERT INTO latestNodeStats(id, uptime, peers) VALUES ($1, $2, $3) ON CONFLICT(id) DO UPDATE SET uptime=EXCLUDED.uptime, peers=EXCLUDED.peers",
@@ -73,8 +60,21 @@ function insertBlockNum(id,lastblock){
     (err, res) => {
         console.log(err, res);
     });
-    row=getLatestFromId(id)
-    console.log("ROWS=>>>>>>>>>\n",row)
+
+    pool.query("SELECT * FROM latestNodeStats WHERE id=$1",[id],
+        (err,res)=>{
+            if (err){
+                console.log(err);
+            } else if(res.rowCount>0){
+                var data=res.rows[0];
+                pool.query("INSERT INTO nodeStats(id, uptime, peers, lastBlock, pending, bestBlock, avgBlockTime, version) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+                [data.id,data.uptime,data.peers,data.lastBlock,data.pending,data.bestBlock,data.avgBlockTime,data.version],
+                (err,res)=>{
+                    console.log(err,res);
+                });
+            }
+        }
+    )
     process.exit(1000)
 }
 
