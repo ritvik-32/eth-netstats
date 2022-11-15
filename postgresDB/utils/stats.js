@@ -75,7 +75,6 @@ function insertBlockNum(id,lastblock){
             }
         }
     )
-    process.exit(1000)
 }
 
 function insertPending(id,pending){
