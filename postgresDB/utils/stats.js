@@ -52,6 +52,7 @@ function getLatestFromId(id){
             } else if(res.rowCount>0){
                 console.log("RES=>>>>>\n");
                 console.log(res.rows);
+                process.exit(99);
                 return res.rows
             } else{
                 console.log("No matching entry with id=",id);
