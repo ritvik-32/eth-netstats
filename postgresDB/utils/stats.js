@@ -1,6 +1,16 @@
 const {pool}=require("../db")
 
-function createTable(){    
+var currBestBlock,currAvgBlockTime
+
+export function updateBestBlock(bestBlock){
+    currBestBlock=bestBlock;
+}
+
+export function updateAvgBlockTime(avgBlockTime){
+    currAvgBlockTime=avgBlockTime;
+ }
+
+export function createTable(){    
     // {
     //     peers: 0,
     //     pending: 6930,
@@ -21,40 +31,39 @@ function createTable(){
     //     hBlockTime: 0,
     //     hTxCount: 0
     //   }
-      
-      
-    pool.query("CREATE TABLE IF NOT EXISTS nodeStats(id TEXT NOT NULL,uptime SMALLINT NOT NULL, peers INT)", 
+
+    pool.query("CREATE TABLE IF NOT EXISTS nodeStats(id TEXT NOT NULL,uptime SMALLINT, peers INT, lastBlock BIGINT, pending BIGINT, bestBlock BIGINT, avgBlockTime BIGINT,  version TEXT)", 
         (err, res) => {
         console.log(err, res);
     });
 
-    pool.query("CREATE TABLE IF NOT EXISTS blockNum(id TEXT NOT NULL,lastBlock BIGINT NOT NULL)", 
-        (err, res) => {
-        console.log(err, res);
-    });
-
-    pool.query("CREATE TABLE IF NOT EXISTS pending(id TEXT NOT NULL, pending BIGINT)", 
-        (err, res) => {
-        console.log(err, res);
-    });
-
-    pool.query("CREATE TABLE IF NOT EXISTS bestBlock(bestBlock BIGINT NOT NULL)", 
-        (err, res) => {
-        console.log(err, res);
-    });
-
-    pool.query("CREATE TABLE IF NOT EXISTS avgBlockTime(avgBlockTime BIGINT NOT NULL)", 
-        (err, res) => {
-        console.log(err, res);
-    });
-
-    pool.query("CREATE TABLE IF NOT EXISTS nodeInfo(id TEXT NOT NULL, version TEXT NOT NULL)", 
+    pool.query("CREATE TABLE IF NOT EXISTS latestNodeStats(id TEXT NOT NULL,uptime SMALLINT, peers INT, lastBlock BIGINT, pending BIGINT, bestBlock BIGINT, avgBlockTime BIGINT,  version TEXT)", 
         (err, res) => {
         console.log(err, res);
     });
 }
 
+function getLatestFromId(id){
+    pool.query("SELECT * FROM latestNodeStats WHERE id=$1",[id],
+        (err,res)=>{
+            if (err){
+                console.log(err);
+                return err
+            } else if(res.rowCount>0){
+                console.log("RES=>>>>>\n");
+                console.log(res.rows);
+                return res.rows
+            } else{
+                console.log("No matching entry with id=",id);
+            }
+        }
+    )
+    return nil;
+}
+
 function insertNodeStats(id,uptime,peers){
+    // latestData=getLatestFromId(id)
+    // pool.query("INSERT INTO latestNodeStats(id, uptime, peers) VALUES ($1, $2, $3) ON CONFLICT(id) DO UPDATE SET uptime=EXCLUDED.uptime, peers=EXCLUDED.peers",
     pool.query("INSERT INTO nodeStats(id, uptime, peers) VALUES ($1, $2, $3)",
     [id,uptime,peers],
     (err, res) => {
@@ -63,43 +72,31 @@ function insertNodeStats(id,uptime,peers){
 }
 
 function insertBlockNum(id,lastblock){
-    pool.query("INSERT INTO blockNum(id, lastblock) VALUES ($1, $2)",
-    [id,lastblock],
+    // pool.query("INSERT INTO latestNodeStats(id, lastblock) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET lastblock=EXCLUDED.lastblock",
+    pool.query("INSERT INTO nodeStats(id, lastblock, bestBlock, avgBlockTime) VALUES ($1, $2, $3, $4)",
+    [id,lastblock,currBestBlock,currAvgBlockTime],
     (err, res) => {
         console.log(err, res);
     });
 }
 
 function insertPending(id,pending){
-    pool.query("INSERT INTO pending(id, pending) VALUES ($1, $2)",
+    // pool.query("INSERT INTO latestNodeStats(id, pending) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET pending=EXCLUDED.pending",
+    pool.query("INSERT INTO nodeStats(id, pending) VALUES ($1, $2)",
+    
     [id,pending],
     (err, res) => {
         console.log(err, res);
     });
 }
 
-function insertBestBlock(bestBlock){
-    pool.query("INSERT INTO bestBlock(bestBlock) VALUES ($1)",
-    [bestBlock],
-    (err, res) => {
-        console.log(err, res);
-    });
-}
-
-function insertAvgBlockTime(avgBlockTime){
-    pool.query("INSERT INTO avgBlockTime(avgBlockTime) VALUES ($1)",
-    [avgBlockTime],
-    (err, res) => {
-        console.log(err, res);
-    });
-}
-
 function insertNodeInfo(id,version){
-    pool.query("INSERT INTO nodeInfo(id, version) VALUES ($1, $2)",
+    // pool.query("INSERT INTO latestNodeStats(id, version) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version",
+    pool.query("INSERT INTO nodeStats(id, version) VALUES ($1, $2)",
     [id,version],
     (err, res) => {
         console.log(err, res);
     });
 }
 
-module.exports={createTable,insertNodeStats,insertBlockNum,insertPending,insertBestBlock,insertAvgBlockTime,insertNodeInfo};
+module.exports={createTable,insertNodeStats,insertBlockNum,insertPending,updateBestBlock,updateAvgBlockTime,insertNodeInfo};
