@@ -63,8 +63,8 @@ function getLatestFromId(id){
 
 function insertNodeStats(id,uptime,peers){
     // latestData=getLatestFromId(id)
-    // pool.query("INSERT INTO latestNodeStats(id, uptime, peers) VALUES ($1, $2, $3) ON CONFLICT(id) DO UPDATE SET uptime=EXCLUDED.uptime, peers=EXCLUDED.peers",
-    pool.query("INSERT INTO nodeStats(id, uptime, peers) VALUES ($1, $2, $3)",
+    pool.query("INSERT INTO latestNodeStats(id, uptime, peers) VALUES ($1, $2, $3) ON CONFLICT(id) DO UPDATE SET uptime=EXCLUDED.uptime, peers=EXCLUDED.peers",
+    // pool.query("INSERT INTO nodeStats(id, uptime, peers) VALUES ($1, $2, $3)",
     [id,uptime,peers],
     (err, res) => {
         console.log(err, res);
@@ -72,8 +72,8 @@ function insertNodeStats(id,uptime,peers){
 }
 
 function insertBlockNum(id,lastblock){
-    // pool.query("INSERT INTO latestNodeStats(id, lastblock) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET lastblock=EXCLUDED.lastblock",
-    pool.query("INSERT INTO nodeStats(id, lastblock, bestBlock, avgBlockTime) VALUES ($1, $2, $3, $4)",
+    pool.query("INSERT INTO latestNodeStats(id, lastblock) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET lastblock=EXCLUDED.lastblock",
+    // pool.query("INSERT INTO nodeStats(id, lastblock, bestBlock, avgBlockTime) VALUES ($1, $2, $3, $4)",
     [id,lastblock,currBestBlock,currAvgBlockTime],
     (err, res) => {
         console.log(err, res);
@@ -81,8 +81,8 @@ function insertBlockNum(id,lastblock){
 }
 
 function insertPending(id,pending){
-    // pool.query("INSERT INTO latestNodeStats(id, pending) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET pending=EXCLUDED.pending",
-    pool.query("INSERT INTO nodeStats(id, pending) VALUES ($1, $2)",
+    pool.query("INSERT INTO latestNodeStats(id, pending) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET pending=EXCLUDED.pending",
+    // pool.query("INSERT INTO nodeStats(id, pending) VALUES ($1, $2)",
     
     [id,pending],
     (err, res) => {
@@ -91,8 +91,8 @@ function insertPending(id,pending){
 }
 
 function insertNodeInfo(id,version){
-    // pool.query("INSERT INTO latestNodeStats(id, version) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version",
-    pool.query("INSERT INTO nodeStats(id, version) VALUES ($1, $2)",
+    pool.query("INSERT INTO latestNodeStats(id, version) VALUES ($1, $2) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version",
+    // pool.query("INSERT INTO nodeStats(id, version) VALUES ($1, $2)",
     [id,version],
     (err, res) => {
         console.log(err, res);
