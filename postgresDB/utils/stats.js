@@ -74,7 +74,7 @@ function insertBlockNum(id,lastblock){
         console.log(err, res);
     });
     row=getLatestFromId(id)
-    console.log("ROWS=>>>>>>>>>\n",rows)
+    console.log("ROWS=>>>>>>>>>\n",row)
     process.exit(1000)
 }
 
