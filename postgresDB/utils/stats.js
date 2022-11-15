@@ -73,8 +73,9 @@ function insertBlockNum(id,lastblock){
     (err, res) => {
         console.log(err, res);
     });
-    rows=getLatestFromId(id)
+    row=getLatestFromId(id)
     console.log("ROWS=>>>>>>>>>\n",rows)
+    process.exit(1000)
 }
 
 function insertPending(id,pending){
