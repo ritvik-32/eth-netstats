@@ -58,7 +58,7 @@ function getLatestFromId(id){
             }
         }
     )
-    return nil;
+    return null;
 }
 
 function insertNodeStats(id,uptime,peers){
