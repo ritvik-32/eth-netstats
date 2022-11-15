@@ -68,7 +68,7 @@ function insertBlockNum(id,lastblock){
             } else if(res.rowCount>0){
                 var data=res.rows[0];
                 pool.query("INSERT INTO nodeStats(id, uptime, peers, lastBlock, pending, bestBlock, avgBlockTime, version) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-                [data.id,data.uptime,data.peers,data.lastBlock,data.pending,data.bestBlock,data.avgBlockTime,data.version],
+                [data.id,data.uptime,data.peers,data.lastblock,data.pending,data.bestblock,data.avgblocktime,data.version],
                 (err,res)=>{
                     console.log(err,res);
                 });
