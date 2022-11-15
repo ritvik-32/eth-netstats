@@ -2,15 +2,15 @@ const {pool}=require("../db")
 
 var currBestBlock,currAvgBlockTime
 
-export function updateBestBlock(bestBlock){
+function updateBestBlock(bestBlock){
     currBestBlock=bestBlock;
 }
 
-export function updateAvgBlockTime(avgBlockTime){
+function updateAvgBlockTime(avgBlockTime){
     currAvgBlockTime=avgBlockTime;
  }
 
-export function createTable(){    
+function createTable(){    
     // {
     //     peers: 0,
     //     pending: 6930,
