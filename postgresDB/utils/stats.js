@@ -37,7 +37,7 @@ function createTable(){
         console.log(err, res);
     });
 
-    pool.query("CREATE TABLE IF NOT EXISTS latestNodeStats(id TEXT NOT NULL,uptime SMALLINT, peers INT, lastBlock BIGINT, pending BIGINT, bestBlock BIGINT, avgBlockTime BIGINT,  version TEXT)", 
+    pool.query("CREATE TABLE IF NOT EXISTS latestNodeStats(id TEXT NOT NULL UNIQUE,uptime SMALLINT, peers INT, lastBlock BIGINT, pending BIGINT, bestBlock BIGINT, avgBlockTime BIGINT,  version TEXT)", 
         (err, res) => {
         console.log(err, res);
     });
