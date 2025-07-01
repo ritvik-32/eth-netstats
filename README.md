@@ -44,7 +44,11 @@ grunt all
 ##Run
 
 ```bash
-npm start
+# For PoS Amoy
+NETWORK_NAME="PoS Amoy" npm start
+
+# For PoS Mainnet
+NETWORK_NAME="PoS Mainnet" npm start
 ```
 
 see the interface at http://localhost:3000
