@@ -54,7 +54,11 @@ grunt all
 ##Run
 
 ```bash
-npm start
+# For Heimdall Amoy
+NETWORK_NAME="Heimdall Amoy" npm start
+
+# For Heimdall Mainnet
+NETWORK_NAME="Heimdall Mainnet" npm start
 ```
 
 see the interface at http://localhost:3000
